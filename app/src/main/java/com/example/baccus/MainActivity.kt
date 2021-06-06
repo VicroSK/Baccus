@@ -1,15 +1,16 @@
 package com.example.baccus
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.example.baccus.juego.JuegoActivity
 import com.example.baccus.jugador.Jugador
 
 class MainActivity : AppCompatActivity() {
 
-    var jugadores: ArrayList<Jugador>? = null;
+    private var jugadores: ArrayList<Jugador>? = null;
     //Botones
     private var btAnadirJugador : Button? = null
     private var btTerminarJugadores : Button? = null
@@ -36,13 +37,18 @@ class MainActivity : AppCompatActivity() {
             jugadores?.add(Jugador(textNombre!!.text.toString()))
 
         }
+        System.out.println("add")
+
         textNombre!!.text.clear()
     }
 
     private fun terminarJugadores() {
-        for (jugador in jugadores!!){
-            System.out.println(jugador.getNombre())
+        System.out.println("Aqui")
+        if (!jugadores.isNullOrEmpty()){
+            val intent = Intent(this, JuegoActivity::class.java).apply {
+                putExtra("jugadores", jugadores!!)
+            }
+            startActivity(intent)
         }
-
     }
 }
